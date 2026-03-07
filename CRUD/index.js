@@ -19,16 +19,21 @@ app.get('/', (req, res) => {
 const userSchema = new mongoose.Schema({
     _id: Number,
     name: {
-        type:String
+        type:String,
+        minlength:[2,"Name must be atleast 2 chracter"]
     },
     email: {
         type:String,
-        required:true,
+        required: [true, "Email Must be there"],
         minlength:6,
         lowercase: true,
-        unique:true
+        unique:true,
     },
-    password: String
+    password: String,
+    role: {
+        type: String,
+        enum: ["Student", "Mentor", "Admin"],          //Enum ensures a field only accepts specific predefined values.
+    }
 });
 const Users = mongoose.model("user", userSchema);
 
